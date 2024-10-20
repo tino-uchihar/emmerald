@@ -1,0 +1,139 @@
+body {
+    background-color: #333;
+    color: #0f0;
+    font-family: Arial, sans-serif;
+}
+
+header, nav, footer {
+    background-color: #444;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-header, .right-header {
+    display: flex;
+    gap: 10px;
+}
+
+.left-header button, .right-header button {
+    background-color: #555;
+    color: #0f0;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    width: 70%; /* Ajuste para reducir el ancho de la barra de búsqueda */
+    margin-bottom: 10px;
+}
+
+#search-bar {
+    flex-grow: 1;
+    padding: 10px;
+    margin: 0 10px;
+    border: 1px solid #0f0;
+    background-color: #555;
+    color: #0f0;
+}
+
+#clear, #search {
+    background-color: #555;
+    color: #0f0;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.categories {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.categories button {
+    background-color: #555;
+    color: #0f0;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.image-gallery div {
+    background-color: #555;
+    width: 30%;
+    height: 200px;
+    margin: 10px;
+}
+
+footer p {
+    text-align: center;
+    color: #0f0;
+}
+
+
+
+
+
+/* APARTIR DE AQUI ES EL LOGIN */
+
+
+
+.form-container {
+    background-color: #444;
+    color: #0f0;
+    padding: 20px;
+    margin: 20px auto;
+    width: 50%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.form-container h2 {
+    margin-top: 0;
+}
+
+.form-container label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #0f0;
+    background-color: #555;
+    color: #0f0;
+}
+
+.form-container button {
+    background-color: #555;
+    color: #0f0;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+}

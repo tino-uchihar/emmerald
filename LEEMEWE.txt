@@ -1,0 +1,25 @@
+PROCESO:
+
+- Llegas a una pagina inicial bien estructurada, la cual se divide en lo siguiente:
+
+- - Una parte superior, con el logo de la pagina en la esquina superior izquierda que funciona como boton para regresar al inicio, y en la esquina superior derecha, completamente en lados opuestos, los dos botones de login y register
+
+- - Una parte de "navegacion" con el buscador centrado en pantalla y dos botones a ambos lados, a la izquierda uno que ponga "ALL" y funcione para limpiar el buscador, y a la derecha uno con un icono de "buscar"
+- - debajo de este navegador, 7 botones a lo largo, cada uno representando una categoria especifica, todos con su respectivo color (rojo, naranja, amarillo, verde, cyan, azul y morado)
+
+- - Una seccion intermedia de "articulos" que muestren diversas imagenes que los usuarios suban a la pagina web, para el ejemplo pondremos 12
+
+- - Un footer en la parte inferior con un texto que diga "Desarrollado por estudiantes"
+
+
+
+
+
+login.html que sirva para tanto para iniciar sesion como para registarse en la pagina web, con javascript. Veras, quiero poder ir a este menú desde el index o pagina inicial, pero que dependiendo de que boton e
+
+
+
+- - Una imagen de fondo que va a ser seleccionada al azar entre las que halla en la galeria de todos los artistas
+
+- - Frente a la imagen, un rectangulo centrado con bordes curvos, ligeramente transparente y dividido en dos, que dependiendo del boton:
+si anteriormente dio click en "login", la mitad de la izquierda dirá "Bienvenido de vuelta!" y a la derecha los campos para usuario, contraseña, un pequeño texto de "olvide mi contraseña" (que de momento no lleva a ningun sitio), y dos botones debajo, uno de "Soy nuevo" y uno de "Login". PERO, en caso de que en el index se seleccione "register" o de que en el login se seleccione "soy nuevo", se va a mostrar el mismo cuadrado pero al revez, con un mensaje en la mitad derecha de "Eres nuevo? Registrate!" y en la mitad izquierda los campos de "nombre", "usuario", "correo" y "contraseña", con dos botones abajo, "ya soy usuario" y "registrarse".

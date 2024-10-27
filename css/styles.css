@@ -1,139 +1,161 @@
-body {
-    background-color: #333;
-    color: #0f0;
-    font-family: Arial, sans-serif;
+body { 
+    background-color: #333; 
+    color: #0f0; 
+    font-family: Arial, sans-serif; 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
 }
 
-header, nav, footer {
-    background-color: #444;
-    padding: 10px;
-    margin-bottom: 10px;
+header, nav, footer { 
+    background-color: #444; 
+    padding: 10px; 
+    margin-bottom: 10px; 
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
 }
 
-.left-header, .right-header {
-    display: flex;
-    gap: 10px;
+.left-header, .right-header { 
+    display: flex; 
+    gap: 10px; 
 }
 
-.left-header button, .right-header button {
-    background-color: #555;
-    color: #0f0;
-    border: none;
-    padding: 10px;
-    margin: 5px;
-    cursor: pointer;
+.left-header button, .right-header button { 
+    background-color: #555; 
+    color: #0f0; 
+    border: none; 
+    padding: 10px; 
+    margin: 5px; 
+    cursor: pointer; 
 }
 
-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+nav { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
 }
 
-.search-bar {
-    display: flex;
-    align-items: center;
-    width: 70%; /* Ajuste para reducir el ancho de la barra de búsqueda */
-    margin-bottom: 10px;
+.search-bar { 
+    display: flex; 
+    align-items: center; 
+    width: 70%; /* Ajuste para reducir el ancho de la barra de búsqueda */ 
+    margin-bottom: 10px; 
 }
 
-#search-bar {
-    flex-grow: 1;
-    padding: 10px;
-    margin: 0 10px;
-    border: 1px solid #0f0;
-    background-color: #555;
-    color: #0f0;
+#search-bar { 
+    flex-grow: 1; 
+    padding: 10px; 
+    margin: 0 10px; 
+    border: 1px solid #0f0; 
+    background-color: #555; 
+    color: #0f0; 
 }
 
-#clear, #search {
-    background-color: #555;
-    color: #0f0;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+#clear, #search { 
+    background-color: #555; 
+    color: #0f0; 
+    border: none; 
+    padding: 10px; 
+    cursor: pointer; 
 }
 
-.categories {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin-top: 10px;
+.categories { 
+    display: flex; 
+    justify-content: space-around; 
+    width: 100%; 
+    margin-top: 10px; 
 }
 
-.categories button {
-    background-color: #555;
-    color: #0f0;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+.categories button { 
+    background-color: #555; 
+    color: #0f0; 
+    border: none; 
+    padding: 10px; 
+    cursor: pointer; 
 }
 
-.image-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+.image-gallery { 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: space-around; 
 }
 
-.image-gallery div {
-    background-color: #555;
-    width: 30%;
-    height: 200px;
-    margin: 10px;
+.image-gallery div { 
+    background-color: #555; 
+    width: 30%; 
+    height: 200px; 
+    margin: 10px; 
 }
 
-footer p {
-    text-align: center;
-    color: #0f0;
+footer { 
+    margin-top: auto; 
 }
 
-
-
-
+footer p { 
+    text-align: center; 
+    color: #0f0; 
+}
 
 /* APARTIR DE AQUI ES EL LOGIN */
 
-
-
-.form-container {
-    background-color: #444;
-    color: #0f0;
-    padding: 20px;
-    margin: 20px auto;
-    width: 50%;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+.form-container { 
+    background-color: #444; 
+    color: #0f0; 
+    padding: 20px; 
+    margin: 20px auto; 
+    width: 50%; 
+    border-radius: 10px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
 }
 
-.form-container h2 {
-    margin-top: 0;
+.form-container h2 { 
+    margin-top: 0; 
 }
 
-.form-container label {
-    display: block;
-    margin: 10px 0 5px;
+.form-container label { 
+    display: block; 
+    margin: 10px 0 5px; 
 }
 
-.form-container input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #0f0;
-    background-color: #555;
-    color: #0f0;
+.form-container input { 
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 10px; 
+    border: 1px solid #0f0; 
+    background-color: #555; 
+    color: #0f0; 
 }
 
-.form-container button {
-    background-color: #555;
-    color: #0f0;
-    border: none;
-    padding: 10px;
-    width: 100%;
-    cursor: pointer;
+.form-container button { 
+    background-color: #555; 
+    color: #0f0; 
+    border: none; 
+    padding: 10px; 
+    width: 100%; 
+    cursor: pointer; 
+}
+
+
+
+/* Estilos para la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 12px; /* Ancho de la barra de desplazamiento */
+}
+
+::-webkit-scrollbar-track {
+    background: #444; /* Color de la pista de la barra de desplazamiento */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #555; /* Color del pulgar de la barra de desplazamiento */
+    border-radius: 10px; /* Bordes redondeados del pulgar */
+    border: 2px solid #333; /* Borde alrededor del pulgar */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #666; /* Color del pulgar al pasar el ratón por encima */
 }

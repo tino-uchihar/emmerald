@@ -1,3 +1,3 @@
 <footer>
-    <p>Desarrollado por Estudiantes</p>
+    <p>Desarrollado por Tino, Anyhela y Mafe</p>
 </footer>

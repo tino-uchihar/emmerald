@@ -1,6 +1,6 @@
 /* Root para colores base del CSS */
 
-:root {    
+:root {
     --color-fondo: #333;
     --color-texto: #0f0;
     --color-primario: #444;
@@ -131,13 +131,16 @@ footer p {
     color: var(--color-texto);
     padding: 20px;
     margin: 20px auto;
-    width: 50%;
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative; /* Necesario para posicionar la línea vertical correctamente */
 }
 
-.form-container h2 {
-    margin-top: 0;
+.form-container form {
+    width: 45%;
 }
 
 .form-container label {
@@ -146,7 +149,7 @@ footer p {
 }
 
 .form-container input {
-    width: 100%;
+    width: calc(100% - 20px); /* Ajuste el ancho del input */
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid var(--color-texto);
@@ -162,6 +165,18 @@ footer p {
     width: 100%;
     cursor: pointer;
 }
+
+#divider {
+    border: none;
+    border-left: 2px solid var(--color-texto); /* Línea vertical */
+    height: 90%; /* Ajuste la altura para que se quede dentro del contenedor */
+    margin: 0 20px; /* Espacio alrededor de la línea */
+    position: absolute; /* Para que no empuje el contenido */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Centrado horizontal y vertical */
+}
+
 
 /* Estilos para la barra de desplazamiento */
 ::-webkit-scrollbar {

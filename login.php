@@ -21,7 +21,7 @@
         </div>
         <hr id="divider"> <!-- Línea con id -->
         <div id="register-section">
-            <form action="register_process.php" method="post">
+            <form action="login.php" method="post">
                 <h2>Registrarse</h2>
                 <label for="register-nombre">Nombre</label>
                 <input type="text" id="register-nombre" name="nombre" required>
@@ -35,9 +35,12 @@
             </form>
         </div>
     </section>
-
-    </div>
     <?php include 'includes/footer.php'; ?>
+
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nombre'])) {
+        include 'register_process.php';
+    }
+    ?>
 </body>
 </html>
-

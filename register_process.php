@@ -1,15 +1,15 @@
 <?php
 include 'config.php';
 
+// Convertir usuario y correo a minúsculas
 $nombre = $_POST['nombre'];
-$usuario = $_POST['usuario'];
-$correo = $_POST['correo'];
+$usuario = strtolower($_POST['usuario']);
+$correo = strtolower($_POST['correo']);
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
 // Verificar si el usuario o el correo ya existen
 $sql_verificacion = "SELECT * FROM TUsuarios WHERE cUsuario='$usuario' OR cCorreo='$correo'";
 $result_verificacion = $conn->query($sql_verificacion);
-
 if ($result_verificacion->num_rows > 0) {
     $row = $result_verificacion->fetch_assoc();
     if ($row['cUsuario'] == $usuario) {
@@ -27,6 +27,5 @@ if ($result_verificacion->num_rows > 0) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
-
 $conn->close();
 ?>

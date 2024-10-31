@@ -31,16 +31,17 @@
                 <input type="email" id="register-correo" name="correo" required>
                 <label for="register-password">Contraseña</label>
                 <input type="password" id="register-password" name="password" required>
+                <p id="caps-warning" style="color:red; display:none;">¡Mayúsculas activas!</p>
                 <button type="submit">Registrarse</button>
             </form>
         </div>
     </section>
     <?php include 'includes/footer.php'; ?>
-
     <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nombre'])) {
         include 'register_process.php';
     }
     ?>
+    <script src="js/script-login.js"></script>
 </body>
 </html>

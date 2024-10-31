@@ -23,3 +23,17 @@ login.html que sirva para tanto para iniciar sesion como para registarse en la p
 
 - - Frente a la imagen, un rectangulo centrado con bordes curvos, ligeramente transparente y dividido en dos, que dependiendo del boton:
 si anteriormente dio click en "login", la mitad de la izquierda dirá "Bienvenido de vuelta!" y a la derecha los campos para usuario, contraseña, un pequeño texto de "olvide mi contraseña" (que de momento no lleva a ningun sitio), y dos botones debajo, uno de "Soy nuevo" y uno de "Login". PERO, en caso de que en el index se seleccione "register" o de que en el login se seleccione "soy nuevo", se va a mostrar el mismo cuadrado pero al revez, con un mensaje en la mitad derecha de "Eres nuevo? Registrate!" y en la mitad izquierda los campos de "nombre", "usuario", "correo" y "contraseña", con dos botones abajo, "ya soy usuario" y "registrarse".
+
+
+/*
+
+Rojo: #ff6347
+Naranja: #ffa500
+Amarillo: #ffd700
+Verde: #0f0
+Cyan: #00ced1
+Azul: #1e90ff
+Morado: #9370db
+
+*/
+

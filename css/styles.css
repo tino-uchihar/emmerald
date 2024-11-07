@@ -184,3 +184,14 @@ footer p {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--color-hover); /* Color del pulgar al pasar el ratón por encima */
 }
+
+
+
+/* Estilo para la imagen de perfil */ 
+.profile-pic {
+    width: 150px; /* Ajusta el ancho deseado */
+    height: 150px; /* Ajusta la altura deseada */
+    object-fit: cover; /* Ajuste para asegurar que la imagen mantenga su proporción */
+    border-radius: 50%; /* Para hacer la imagen redonda */
+    border: 2px solid var(--color-texto); /* Añadir un borde */
+}

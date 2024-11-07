@@ -1,5 +1,6 @@
 <?php
 include 'config.php';
+session_start();
 
 $usuario = $_POST['usuario'];
 $password = $_POST['password'];
@@ -10,8 +11,9 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     if (password_verify($password, $row['cPassword'])) {
-        echo "Inicio de sesión exitoso!";
-        // Aquí puedes iniciar la sesión y redirigir al usuario
+        $_SESSION['usuario'] = $usuario;
+        header("Location: profile.php");
+        exit();
     } else {
         echo "Contraseña incorrecta.";
     }

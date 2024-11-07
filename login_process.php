@@ -12,7 +12,7 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     if (password_verify($password, $row['cPassword'])) {
         $_SESSION['usuario'] = $usuario;
-        header("Location: profile.php");
+        header("Location: profile.php?usuario=$usuario");
         exit();
     } else {
         echo "Contraseña incorrecta.";

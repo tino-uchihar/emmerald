@@ -24,7 +24,7 @@ if ($result_verificacion->num_rows > 0) {
     $sql = "INSERT INTO TUsuarios (cNombre, cUsuario, cCorreo, cPassword) VALUES ('$nombre', '$usuario', '$correo', '$password')";
     if ($conn->query($sql) === TRUE) {
         $_SESSION['usuario'] = $usuario;
-        echo "<script>alert('Registro exitoso!'); window.location.href='profile.php';</script>"; // Alerta y redirección a profile.php
+        echo "<script>alert('Registro exitoso!'); window.location.href='profile.php?usuario=$usuario';</script>"; // Alerta y redirección a profile.php
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

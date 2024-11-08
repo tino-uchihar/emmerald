@@ -13,7 +13,7 @@
             <form action="login_process.php" method="post">
                 <h2>Iniciar Sesión</h2>
                 <label for="login-usuario">Usuario</label>
-                <input type="text" id="login-usuario" name="usuario" required>
+                <input type="text" id="login-usuario" name="usuario" maxlength="24" required>
                 <label for="login-password">Contraseña</label>
                 <input type="password" id="login-password" name="password" required>
                 <button type="submit">Iniciar Sesión</button>
@@ -21,14 +21,14 @@
         </div>
         <hr id="divider"> <!-- Línea con id -->
         <div id="register-section">
-            <form action="login.php" method="post">
+            <form action="register_process.php" method="post" onsubmit="return validateForm()">
                 <h2>Registrarse</h2>
                 <label for="register-nombre">Nombre</label>
-                <input type="text" id="register-nombre" name="nombre" required>
+                <input type="text" id="register-nombre" name="nombre" maxlength="48" required>
                 <label for="register-usuario">Usuario</label>
-                <input type="text" id="register-usuario" name="usuario" required>
+                <input type="text" id="register-usuario" name="usuario" maxlength="24" required>
                 <label for="register-correo">Correo</label>
-                <input type="email" id="register-correo" name="correo" required>
+                <input type="email" id="register-correo" name="correo" maxlength="100" required>
                 <label for="register-password">Contraseña</label>
                 <input type="password" id="register-password" name="password" required>
                 <p id="caps-warning" style="color:red; display:none;">¡Mayúsculas activas!</p>

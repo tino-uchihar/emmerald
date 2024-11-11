@@ -223,12 +223,17 @@ footer p {
 }
 
 #login-bg {
-    background-color: var(--color-secundario); /* Color de fondo de momento */
+    background-image: url('../images/loginweypic.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
 #register-bg {
-    background-color: var(--color-secundario); /* Color de fondo de momento */
+    background-image: url('../images/registerweypic.jpg');
+    background-size: cover;
+    background-position: center;
 }
+
 
 .half-container form {
     width: 100%;

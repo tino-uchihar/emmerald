@@ -4,7 +4,7 @@
         <button onclick="location.href='index.php'">Esmeralda</button>
     </div>
     <div class="right-header">
-        <button id="ltButton" onclick="location.href='login.php?mode=login'">Login</button>
-        <button id="rtButton" onclick="location.href='login.php?mode=register'">Register</button>
+        <button id="ltButton" class="mode-button" onclick="location.href='login.php?mode=login'">Login</button>
+        <button id="rtButton" class="mode-button" onclick="location.href='login.php?mode=register'">Register</button>
     </div>
 </header>

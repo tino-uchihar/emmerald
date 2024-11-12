@@ -262,3 +262,52 @@ footer p {
     width: 100%;
     cursor: pointer;
 }
+
+
+/* Animaciones CSS para las transiciones */
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.half-container {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.half-container.animate-slide-left {
+    animation: slideInLeft 0.5s forwards;
+}
+
+.half-container.animate-slide-right {
+    animation: slideInRight 0.5s forwards;
+}
+
+.background-image.animate-fade-out {
+    animation: fadeOut 0.5s forwards;
+}

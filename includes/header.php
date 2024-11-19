@@ -24,20 +24,23 @@ if (session_status() == PHP_SESSION_NONE) {
     <div class="modal-content">
         <button id="closeModalBtn" class="close-modal-btn">X</button>
         <div class="left-panel">
-            <div id="imageCarousel">
-                <!-- Las imágenes cargadas aparecerán aquí -->
+            <div id="carouselContainer">
+                <button id="prevBtn" class="carousel-btn">←</button>
+                <div id="imageCarousel">
+                    <!-- Las imágenes cargadas aparecerán aquí -->
+                </div>
+                <button id="nextBtn" class="carousel-btn">→</button>
             </div>
             <div class="controls">
                 <span id="imageCount">0/10</span>
                 <button id="addImageBtn">+</button>
             </div>
+            <input type="text" id="hashtags" name="hashtags" maxlength="50" placeholder="Etiquetas (máx 50 caracteres)">
         </div>
         <div class="right-panel">
             <form action="new_post_process.php" method="post" enctype="multipart/form-data" id="newPostForm">
-                <label for="cTitulo">Título del Proyecto (max 100 caracteres)</label>
-                <input type="text" id="cTitulo" name="cTitulo" maxlength="100" required>
-                <label for="tDescripcion">Descripción (max 500 caracteres)</label>
-                <textarea id="tDescripcion" name="tDescripcion" maxlength="500" required></textarea>
+                <input type="text" id="cTitulo" name="cTitulo" maxlength="100" placeholder="Título del Proyecto (max 100 caracteres)" required>
+                <textarea id="tDescripcion" name="tDescripcion" maxlength="500" placeholder="Descripción (max 500 caracteres)" required></textarea>
                 <div class="buttons">
                     <button type="submit">Publicar</button>
                     <button type="button" id="cancelBtn">Cancelar</button>
@@ -88,8 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageCarousel = document.getElementById('imageCarousel');
     const addImageBtn = document.getElementById('addImageBtn');
     const imageCount = document.getElementById('imageCount');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
     let images = [];
-    let imageIndex = 0;
+    let currentImageIndex = 0;
 
     addImageBtn.addEventListener('click', () => {
         if (images.length < 10) {
@@ -101,9 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = () => {
-                        addImage(reader.result, images.length);
                         images.push(reader.result);
                         imageCount.textContent = `${images.length}/10`;
+                        displayImage(currentImageIndex);
                     }
                     reader.readAsDataURL(file);
                 }
@@ -114,23 +119,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function addImage(src, index) {
-        const imgContainer = document.createElement('div');
-        imgContainer.classList.add('image-container');
-        const img = document.createElement('img');
-        img.src = src;
-        const removeBtn = document.createElement('button');
-        removeBtn.textContent = 'X';
-        removeBtn.classList.add('remove-btn');
-        removeBtn.onclick = () => {
-            imgContainer.remove();
-            images.splice(index, 1);
-            imageCount.textContent = `${images.length}/10`;
+    function displayImage(index) {
+        if (images.length > 0) {
+            imageCarousel.innerHTML = `
+                <div class="image-container">
+                    <img src="${images[index]}" alt="Imagen ${index + 1}">
+                    <button class="remove-btn" onclick="removeImage(${index})">X</button>
+                </div>
+            `;
         }
-        imgContainer.appendChild(img);
-        imgContainer.appendChild(removeBtn);
-        imageCarousel.appendChild(imgContainer);
     }
+
+    prevBtn.addEventListener('click', () => {
+        if (images.length > 0) {
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            displayImage(currentImageIndex);
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (images.length > 0) {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            displayImage(currentImageIndex);
+        }
+    });
+
+    window.removeImage = (index) => {
+        images.splice(index, 1);
+        imageCount.textContent = `${images.length}/10`;
+        if (images.length > 0) {
+            currentImageIndex = currentImageIndex % images.length;
+            displayImage(currentImageIndex);
+        } else {
+            imageCarousel.innerHTML = '';
+        }
+    };
 
     const newPostButton = document.getElementById('newPostButton');
     const newPostModal = document.getElementById('newPostModal');

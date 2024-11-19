@@ -9,7 +9,7 @@
 <body>
     <?php
     include 'includes/header.php';
-    session_start();
+    //session_start();
 
     // Verificar si el usuario ya ha iniciado sesión
     if (isset($_SESSION['usuario'])) {

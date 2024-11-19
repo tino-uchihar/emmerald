@@ -16,7 +16,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
 } else {
-    echo "Usuario no encontrado.";
+    header("Location: ErrorPerfil.php"); // Redirigir a ErrorPerfil.php si el usuario no existe
     exit();
 }
 ?>

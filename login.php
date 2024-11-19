@@ -7,13 +7,28 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <?php include 'includes/header.php'; ?>
+    <?php
+    include 'includes/header.php';
+    session_start();
+
+    // Verificar si el usuario ya ha iniciado sesión
+    if (isset($_SESSION['usuario'])) {
+        header("Location: error_logged_in.php");
+        exit();
+    }
+
+    $mode = isset($_GET['mode']) ? $_GET['mode'] : 'login';
+
+    // Verificar que el modo es válido
+    $valid_modes = ['login', 'register'];
+    if (!in_array($mode, $valid_modes)) {
+        header("Location: error404.php");
+        exit();
+    }
+    ?>
     <section class="form-container">
-        <?php
-        $mode = isset($_GET['mode']) ? $_GET['mode'] : 'login';
-        ?>
-        <div class="half-container">
-            <?php if ($mode == 'login'): ?>
+        <?php if ($mode == 'login'): ?>
+            <div class="half-container">
                 <form action="login_process.php" method="post">
                     <h2>Iniciar Sesión</h2>
                     <label for="login-usuario">Usuario</label>
@@ -22,14 +37,19 @@
                     <input type="password" id="login-password" name="password" required>
                     <button type="submit">Iniciar Sesión</button>
                 </form>
-            <?php else: ?>
+            </div>
+            <div class="half-container">
                 <div class="background-image" id="login-bg">
                     <p>Bienvenido de nuevo</p>
                 </div>
-            <?php endif; ?>
-        </div>
-        <div class="half-container">
-            <?php if ($mode == 'register'): ?>
+            </div>
+        <?php elseif ($mode == 'register'): ?>
+            <div class="half-container">
+                <div class="background-image" id="register-bg">
+                    <p>Gracias por unirte!</p>
+                </div>
+            </div>
+            <div class="half-container">
                 <form action="register_process.php" method="post" onsubmit="return validateForm()">
                     <h2>Registrarse</h2>
                     <label for="register-nombre">Nombre</label>
@@ -43,12 +63,8 @@
                     <p id="caps-warning" style="color:red; display:none;">¡Mayúsculas activas!</p>
                     <button type="submit">Registrarse</button>
                 </form>
-            <?php else: ?>
-                <div class="background-image" id="register-bg">
-                    <p>Gracias por unirte!</p>
-                </div>
-            <?php endif; ?>
-        </div>
+            </div>
+        <?php endif; ?>
     </section>
     <?php include 'includes/footer.php'; ?>
     <script src="js/script-login.js"></script>

@@ -36,10 +36,8 @@ CREATE TABLE if not exists TProyectos (
     cUrl VARCHAR(255) NOT NULL,
 	iUsuario_id INT,
     iCategoria_id INT,
-    iEtiqueta_id INT,
 	FOREIGN KEY (iUsuario_id) REFERENCES TUsuarios(iUsuario_id),
-    FOREIGN KEY (iCategoria_id) REFERENCES TCategorias(iCategoria_id),
-    FOREIGN KEY (iEtiqueta_id) REFERENCES TEtiquetas(iEtiqueta_id)
+    FOREIGN KEY (iCategoria_id) REFERENCES TCategorias(iCategoria_id)
 )engine=InnoDB;
 
 
@@ -79,4 +77,24 @@ CREATE TABLE if not exists TArchivo (
     iProyecto_id INT,
     oArchivo BLOB,
     FOREIGN KEY (iProyecto_id) REFERENCES TProyectos(iProyecto_id)
+)engine=InnoDB;
+
+
+#Grupo etiquetas de la publicacion
+CREATE TABLE if not exists Tetpubli (
+    iEtpubli_id INT AUTO_INCREMENT PRIMARY KEY,
+    iProyecto_id INT,
+    iEtiqueta_id int,
+    FOREIGN KEY (iEtiqueta_id) REFERENCES TEtiquetas (iEtiqueta_id),
+    FOREIGN KEY (iProyecto_id) REFERENCES TProyectos (iProyecto_id)
+)engine=InnoDB;
+
+
+#Moderadores
+CREATE TABLE if not exists TModeradores (
+iModerador_id INT AUTO_INCREMENT PRIMARY KEY,
+iUsuario_id INT,
+CRol VARCHAR(50) NOT NULL,
+dAsignacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (iUsuario_id) REFERENCES TUsuarios (iUsuario_id) ON DELETE CASCADE
 )engine=InnoDB;

@@ -32,16 +32,16 @@
         $clave = 'estaesunallavesecreta';
 
         // Recuperar todas las publicaciones y sus imágenes, ordenadas por fecha
-        $sql = "SELECT TProyectos.cTitulo, TProyectos.dCreacion, TArchivo.oArchivo 
+        $sql = "SELECT TProyectos.cTitulo, TProyectos.dCreacion, TArchivos.tArchivo 
                 FROM TProyectos 
-                JOIN TArchivo ON TProyectos.iProyecto_id = TArchivo.iProyecto_id 
+                JOIN TArchivo ON TProyectos.iProyecto_id = TArchivos.iProyecto_id 
                 ORDER BY TProyectos.dCreacion DESC";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
             echo '<div class="gallery-row">';
             while ($row = $result->fetch_assoc()) {
-                $imagenes = json_decode($row['oArchivo']);
+                $imagenes = json_decode($row['tArchivo']);
                 echo '<div class="gallery-item">';
                 foreach ($imagenes as $imagen) {
                     echo '<img src="uploads/' . htmlspecialchars($imagen) . '" alt="' . htmlspecialchars($row['cTitulo']) . '" width="200">';

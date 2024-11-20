@@ -21,10 +21,10 @@
             </div>
             <div class="right-panel">
                 <form action="new_post_process.php" method="post" enctype="multipart/form-data" id="newPostForm">
-                    <label for="cTitulo">Título del Proyecto (max 100 caracteres)</label>
-                    <input type="text" id="cTitulo" name="cTitulo" maxlength="100" required>
-                    <label for="tDescripcion">Descripción (max 500 caracteres)</label>
-                    <textarea id="tDescripcion" name="tDescripcion" maxlength="500" required></textarea>
+                    <div class="field-label">Título</div>
+                    <input type="text" class="input-field" id="cTitulo" name="cTitulo" maxlength="100" placeholder="(max 100 caracteres)" required>
+                    <div class="field-label">Descripción</div>
+                    <textarea class="input-field" id="tDescripcion" name="tDescripcion" maxlength="500" placeholder="(max 500 caracteres)" required></textarea>
                     <input type="file" name="imagenes[]" id="imagenes" accept=".jpg, .jpeg, .png, .webp, .gif" multiple>
                     <div class="buttons">
                         <button type="submit">Publicar</button>

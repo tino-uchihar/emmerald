@@ -32,7 +32,7 @@ CREATE TABLE if not exists TProyectos (
     iProyecto_id INT AUTO_INCREMENT PRIMARY KEY,
     cTitulo VARCHAR(100) NOT NULL,
     tDescripcion TEXT,
-    dCreacion DATE,
+    dCreacion DATETIME,
     cUrl VARCHAR(255) NOT NULL,
 	iUsuario_id INT,
     iCategoria_id INT,
@@ -75,7 +75,7 @@ CREATE TABLE TFollows (
 CREATE TABLE if not exists TArchivo (
     iArchivo_id INT AUTO_INCREMENT PRIMARY KEY,
     iProyecto_id INT,
-    oArchivo BLOB,
+    tArchivo TEXT,
     FOREIGN KEY (iProyecto_id) REFERENCES TProyectos(iProyecto_id)
 )engine=InnoDB;
 

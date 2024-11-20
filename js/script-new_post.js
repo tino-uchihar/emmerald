@@ -21,14 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         reader.onload = () => {
                             images.push(reader.result);
                             imageCount.textContent = `${images.length}/10`;
-                            displayImage(currentImageIndex);
-                        }
+                            displayImage(images.length - 1);
+                        };
                         reader.readAsDataURL(file);
                     } else {
                         alert('Solo se permiten archivos de tipo jpg, jpeg, png, webp, y gif.');
                     }
                 }
-            }
+            };
             input.click();
         } else {
             alert('Máximo 10 imágenes por publicación.');
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function displayImage(index) {
         if (images.length > 0) {
-            imageCarousel.innerHTML = `
+            imageCarousel.innerHTML += `
                 <div class="image-container">
                     <img src="${images[index]}" alt="Imagen ${index + 1}">
                     <button class="remove-btn" onclick="removeImage(${index})">X</button>
@@ -49,27 +49,27 @@ document.addEventListener('DOMContentLoaded', () => {
     prevBtn.addEventListener('click', () => {
         if (images.length > 0) {
             currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-            displayImage(currentImageIndex);
+            renderCarousel();
         }
     });
 
     nextBtn.addEventListener('click', () => {
         if (images.length > 0) {
             currentImageIndex = (currentImageIndex + 1) % images.length;
-            displayImage(currentImageIndex);
+            renderCarousel();
         }
     });
 
     window.removeImage = (index) => {
         images.splice(index, 1);
         imageCount.textContent = `${images.length}/10`;
-        if (images.length > 0) {
-            currentImageIndex = currentImageIndex % images.length;
-            displayImage(currentImageIndex);
-        } else {
-            imageCarousel.innerHTML = '';
-        }
+        renderCarousel();
     };
+
+    function renderCarousel() {
+        imageCarousel.innerHTML = '';
+        images.forEach((img, index) => displayImage(index));
+    }
 
     const newPostButton = document.getElementById('newPostButton');
     const newPostModal = document.getElementById('newPostModal');

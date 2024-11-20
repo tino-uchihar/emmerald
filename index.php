@@ -28,6 +28,9 @@
         <?php
         include 'config.php';
 
+        // Clave para desencriptar si estás usando encriptación
+        $clave = 'estaesunallavesecreta';
+
         // Recuperar todas las publicaciones y sus imágenes, ordenadas por fecha
         $sql = "SELECT TProyectos.cTitulo, TProyectos.dCreacion, TArchivo.oArchivo 
                 FROM TProyectos 
@@ -36,19 +39,17 @@
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-            $count = 0;
             echo '<div class="gallery-row">';
             while ($row = $result->fetch_assoc()) {
-                if ($count > 0 && $count % 4 == 0) {
-                    echo '</div><div class="gallery-row">';  // Nueva fila para cada 4 imágenes
-                }
+                $imagenes = json_decode($row['oArchivo']);
                 echo '<div class="gallery-item">';
-                echo '<img src="' . htmlspecialchars($row['oArchivo']) . '" alt="' . htmlspecialchars($row['cTitulo']) . '">';
+                foreach ($imagenes as $imagen) {
+                    echo '<img src="uploads/' . htmlspecialchars($imagen) . '" alt="' . htmlspecialchars($row['cTitulo']) . '" width="200">';
+                }
                 echo '<p>' . htmlspecialchars($row['cTitulo']) . '</p>';
                 echo '</div>';
-                $count++;
             }
-            echo '</div>'; // Cerrar la última fila
+            echo '</div>'; // Cerrar la fila
         } else {
             echo '<p>No hay publicaciones disponibles.</p>';
         }

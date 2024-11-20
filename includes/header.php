@@ -44,6 +44,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <input type="text" class="input-field" id="cTitulo" name="cTitulo" maxlength="100" placeholder="(max 100 caracteres)" required>
                 <div class="field-label">Descripción</div>
                 <textarea class="input-field" id="tDescripcion" name="tDescripcion" maxlength="500" placeholder="(max 500 caracteres)" required></textarea>
+                <input type="file" name="imagenes[]" id="imagenes" accept=".jpg, .jpeg, .png, .webp, .gif" multiple>
                 <div class="buttons">
                     <button type="submit">Publicar</button>
                     <button type="button" id="cancelBtn">Cancelar</button>

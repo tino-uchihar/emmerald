@@ -11,17 +11,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (images.length < 10) {
             const input = document.createElement('input');
             input.type = 'file';
-            input.accept = 'image/*';
+            input.accept = '.jpg, .jpeg, .png, .webp, .gif';
             input.onchange = (event) => {
                 const file = event.target.files[0];
                 if (file) {
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                        images.push(reader.result);
-                        imageCount.textContent = `${images.length}/10`;
-                        displayImage(currentImageIndex);
+                    const validFileTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+                    if (validFileTypes.includes(file.type)) {
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                            images.push(reader.result);
+                            imageCount.textContent = `${images.length}/10`;
+                            displayImage(currentImageIndex);
+                        }
+                        reader.readAsDataURL(file);
+                    } else {
+                        alert('Solo se permiten archivos de tipo jpg, jpeg, png, webp, y gif.');
                     }
-                    reader.readAsDataURL(file);
                 }
             }
             input.click();

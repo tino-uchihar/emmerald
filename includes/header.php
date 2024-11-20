@@ -11,7 +11,7 @@ if (session_status() == PHP_SESSION_NONE) {
     </div>
     <div class="right-header">
         <?php if (isset($_SESSION['usuario'])): ?>
-            <button id="newPostButton" class="mode-button">Nueva publicación</button>
+            <button id="newPostButton" class="mode-button" onclick="openNewPostModal()">Nueva publicación</button>
             <button id="userButton" class="mode-button" onclick="mostrarAside()"><?php echo htmlspecialchars($usuario); ?></button>
         <?php else: ?>
             <button id="ltButton" class="mode-button" onclick="location.href='login.php?mode=login'">Login</button>
@@ -35,12 +35,15 @@ if (session_status() == PHP_SESSION_NONE) {
                 <span id="imageCount">0/10</span>
                 <button id="addImageBtn">+</button>
             </div>
-            <input type="text" id="hashtags" name="hashtags" maxlength="50" placeholder="Etiquetas (máx 50 caracteres)">
+            <div class="tags-list" id="tags-list"></div>
+            <input type="text" class="input-field" id="etiquetas" placeholder="Agregar etiquetas">
         </div>
         <div class="right-panel">
             <form action="new_post_process.php" method="post" enctype="multipart/form-data" id="newPostForm">
-                <input type="text" id="cTitulo" name="cTitulo" maxlength="100" placeholder="Título del Proyecto (max 100 caracteres)" required>
-                <textarea id="tDescripcion" name="tDescripcion" maxlength="500" placeholder="Descripción (max 500 caracteres)" required></textarea>
+                <div class="field-label">Título</div>
+                <input type="text" class="input-field" id="cTitulo" name="cTitulo" maxlength="100" placeholder="(max 100 caracteres)" required>
+                <div class="field-label">Descripción</div>
+                <textarea class="input-field" id="tDescripcion" name="tDescripcion" maxlength="500" placeholder="(max 500 caracteres)" required></textarea>
                 <div class="buttons">
                     <button type="submit">Publicar</button>
                     <button type="button" id="cancelBtn">Cancelar</button>
@@ -52,16 +55,12 @@ if (session_status() == PHP_SESSION_NONE) {
 
 <script>
 function mostrarAside() {
-    // Cargar el contenido del aside.php de manera asíncrona y agregarlo a la página
     fetch('includes/aside.php')
         .then(response => response.text())
         .then(data => {
-            // Crear un contenedor para el aside y agregar el HTML recibido
             const asideContainer = document.createElement('div');
             asideContainer.innerHTML = data;
             document.body.appendChild(asideContainer);
-            
-            // Agregar listener para cerrar el aside al hacer clic fuera de él
             document.addEventListener('click', cerrarAsideAlHacerClickFuera);
         })
         .catch(error => console.error('Error al cargar el aside:', error));
@@ -79,7 +78,6 @@ function cerrarAside() {
     if (aside) {
         aside.remove();
     }
-    // Remover el listener cuando se cierre el aside
     document.removeEventListener('click', cerrarAsideAlHacerClickFuera);
 }
 

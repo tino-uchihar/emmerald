@@ -25,6 +25,7 @@
                     <input type="text" id="cTitulo" name="cTitulo" maxlength="100" required>
                     <label for="tDescripcion">Descripción (max 500 caracteres)</label>
                     <textarea id="tDescripcion" name="tDescripcion" maxlength="500" required></textarea>
+                    <input type="file" name="imagenes[]" id="imagenes" accept=".jpg, .jpeg, .png, .webp, .gif" multiple>
                     <div class="buttons">
                         <button type="submit">Publicar</button>
                         <button type="button" id="cancelBtn">Cancelar</button>

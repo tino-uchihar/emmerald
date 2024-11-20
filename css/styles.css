@@ -570,3 +570,30 @@ input[type="text"], textarea {
 .close-modal-btn {
     display: none;
 }
+
+/* Css para el grid de las imagenes index we */
+
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.gallery-row {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.gallery-item {
+    flex: 1 1 calc(25% - 20px); /* Ajustar el tamaño del contenedor */
+    margin: 10px;
+    text-align: center;
+}
+
+.gallery-item img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}

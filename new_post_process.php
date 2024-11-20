@@ -40,11 +40,16 @@ if ($stmt->execute()) {
                 }
             } else {
                 echo "Solo se permiten archivos de tipo jpg, jpeg, png, webp, y gif.";
+                exit();
             }
         }
     }
 
-    echo "Publicación exitosa!";
+    // Mostrar notificación y redirigir al usuario a la página de inicio después de la publicación exitosa
+    echo "<script>
+        alert('¡Publicación exitosa!');
+        window.location.href = 'index.php';
+    </script>";
 } else {
     echo "Error: " . $stmt->error;
 }

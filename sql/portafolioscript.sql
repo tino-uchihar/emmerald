@@ -72,7 +72,7 @@ CREATE TABLE TFollows (
 )engine=InnoDB;
 
 
-CREATE TABLE if not exists TArchivo (
+CREATE TABLE if not exists TArchivos (
     iArchivo_id INT AUTO_INCREMENT PRIMARY KEY,
     iProyecto_id INT,
     tArchivo TEXT,

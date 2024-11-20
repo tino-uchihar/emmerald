@@ -16,7 +16,7 @@
                 </div>
                 <div class="controls">
                     <span id="imageCount">0/10</span>
-                    <button id="addImageBtn">+</button>
+                    <input type="file" name="imagenes[]" id="imagenes" accept=".jpg, .jpeg, .png, .webp, .gif" multiple>
                 </div>
             </div>
             <div class="right-panel">

@@ -34,11 +34,11 @@
         // Recuperar todas las publicaciones y sus imágenes, ordenadas por fecha
         $sql = "SELECT TProyectos.cTitulo, TProyectos.dCreacion, TArchivos.tArchivo 
                 FROM TProyectos 
-                JOIN TArchivo ON TProyectos.iProyecto_id = TArchivos.iProyecto_id 
+                JOIN TArchivos ON TProyectos.iProyecto_id = TArchivos.iProyecto_id 
                 ORDER BY TProyectos.dCreacion DESC";
         $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result && $result->num_rows > 0) {
             echo '<div class="gallery-row">';
             while ($row = $result->fetch_assoc()) {
                 $imagenes = json_decode($row['tArchivo']);

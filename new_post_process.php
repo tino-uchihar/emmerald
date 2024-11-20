@@ -16,7 +16,6 @@ if (empty($titulo) || empty($descripcion)) {
     exit();
 }
 
-// Generar URL única
 function generateUniqueUrl($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
@@ -27,14 +26,12 @@ function generateUniqueUrl($length = 10) {
     return $randomString;
 }
 
-// Verificar que la URL sea única
 do {
     $uniqueUrl = generateUniqueUrl();
     $sql = "SELECT * FROM TProyectos WHERE cUrl='$uniqueUrl'";
     $result = $conn->query($sql);
 } while ($result->num_rows > 0);
 
-// Insertar el nuevo proyecto en la base de datos
 $fechaActual = date('Y-m-d H:i:s');
 $sql = "INSERT INTO TProyectos (cTitulo, tDescripcion, dCreacion, cUrl, iUsuario_id, iCategoria_id) VALUES (?, ?, ?, ?, (SELECT iUsuario_id FROM TUsuarios WHERE cUsuario = ?), NULL)";
 $stmt = $conn->prepare($sql);
@@ -43,9 +40,6 @@ $stmt->bind_param('sssss', $titulo, $descripcion, $fechaActual, $uniqueUrl, $usu
 if ($stmt->execute()) {
     $proyectoId = $stmt->insert_id;
 
-    echo "Proyecto creado con ID: $proyectoId <br>";
-
-    // Subir y guardar imágenes
     $allowedFileTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
     $imagesArray = [];
 
@@ -61,29 +55,33 @@ if ($stmt->execute()) {
 
             if (in_array($_FILES['imagenes']['type'][$i], $allowedFileTypes)) {
                 $newFileName = uniqid() . '.' . $fileExtension;
-                move_uploaded_file($tmpName, 'uploads/' . $newFileName);
-                $imagesArray[] = $newFileName;
+                if (move_uploaded_file($tmpName, 'uploads/' . $newFileName)) {
+                    $imagesArray[] = $newFileName;
+                } else {
+                    echo "Error al mover el archivo $fileName.<br>";
+                }
             } else {
                 echo "Solo se permiten archivos de tipo jpg, jpeg, png, webp, y gif.<br>";
                 exit();
             }
         }
 
-        $imagesJson = json_encode($imagesArray);
-        $sql = "INSERT INTO TArchivo (iProyecto_id, tArchivo) VALUES (?, ?)";
-        $stmtArchivo = $conn->prepare($sql);
-        $stmtArchivo->bind_param('is', $proyectoId, $imagesJson);
+        if (!empty($imagesArray)) {
+            $imagesJson = json_encode($imagesArray);
+            $sql = "INSERT INTO TArchivos (iProyecto_id, tArchivo) VALUES (?, ?)";
+            $stmtArchivo = $conn->prepare($sql);
+            $stmtArchivo->bind_param('is', $proyectoId, $imagesJson);
 
-        if (!$stmtArchivo->execute()) {
-            echo "Error al insertar archivos: " . $stmtArchivo->error . "<br>";
-        } else {
-            echo "Archivos subidos y guardados correctamente. <br>";
+            if (!$stmtArchivo->execute()) {
+                echo "Error al insertar archivos: " . $stmtArchivo->error . "<br>";
+            } else {
+                echo "Archivos subidos y guardados correctamente. <br>";
+            }
         }
     } else {
         echo "No se seleccionaron archivos para subir.<br>";
     }
 
-    // Redirigir al usuario a la página de inicio después de la publicación exitosa
     echo "<script>
         alert('¡Publicación exitosa!');
         window.location.href = 'index.php';

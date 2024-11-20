@@ -70,21 +70,52 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const newPostButton = document.getElementById('newPostButton');
-    const newPostModal = document.getElementById('newPostModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const cancelBtn = document.getElementById('cancelBtn');
 
     newPostButton.addEventListener('click', () => {
-        newPostModal.style.display = 'flex';
+        openNewPostModal();
     });
 
     closeModalBtn.addEventListener('click', () => {
-        newPostModal.style.display = 'none';
+        document.getElementById('newPostModal').remove();
     });
 
     cancelBtn.addEventListener('click', () => {
         if (confirm('¿Estás seguro de que deseas cancelar? Se perderán todos los cambios.')) {
-            newPostModal.style.display = 'none';
+            document.getElementById('newPostModal').remove();
         }
     });
 });
+
+function openNewPostModal() {
+    console.log('openNewPostModal called');  // Depuración
+    fetch('new_post.php')
+        .then(response => {
+            console.log('response received');  // Depuración
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log('data received:', data);  // Depuración
+            const modalContainer = document.createElement('div');
+            modalContainer.innerHTML = data;
+            document.body.appendChild(modalContainer);
+            const script = document.createElement('script');
+            script.src = 'js/script-new_post.js';
+            document.body.appendChild(script);
+            document.getElementById('closeModalBtn').addEventListener('click', () => {
+                modalContainer.remove();
+            });
+            document.getElementById('cancelBtn').addEventListener('click', () => {
+                if (confirm('¿Estás seguro de que deseas cancelar? Se perderán todos los cambios.')) {
+                    modalContainer.remove();
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error al cargar el modal:', error);
+        });
+}

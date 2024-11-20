@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const newPostButton = document.getElementById('newPostButton');
+    const newPostModal = document.getElementById('newPostModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const cancelBtn = document.getElementById('cancelBtn');
 
@@ -78,28 +79,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     closeModalBtn.addEventListener('click', () => {
-        document.getElementById('newPostModal').remove();
+        newPostModal.style.display = 'none';
     });
 
     cancelBtn.addEventListener('click', () => {
         if (confirm('¿Estás seguro de que deseas cancelar? Se perderán todos los cambios.')) {
-            document.getElementById('newPostModal').remove();
+            newPostModal.style.display = 'none';
         }
     });
 });
 
 function openNewPostModal() {
-    console.log('openNewPostModal called');  // Depuración
     fetch('new_post.php')
-        .then(response => {
-            console.log('response received');  // Depuración
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text();
-        })
+        .then(response => response.text())
         .then(data => {
-            console.log('data received:', data);  // Depuración
             const modalContainer = document.createElement('div');
             modalContainer.innerHTML = data;
             document.body.appendChild(modalContainer);
@@ -115,7 +108,5 @@ function openNewPostModal() {
                 }
             });
         })
-        .catch(error => {
-            console.error('Error al cargar el modal:', error);
-        });
+        .catch(error => console.error('Error al cargar el modal:', error));
 }

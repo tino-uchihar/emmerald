@@ -10,8 +10,12 @@ $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : '';
     <div class="modal-content">
         <button id="closeModalBtn" class="close-modal-btn">X</button>
         <div class="left-panel">
-            <div id="imageCarousel">
-                <!-- Las imágenes cargadas aparecerán aquí -->
+            <div id="carouselContainer">
+                <button id="prevBtn" class="carousel-btn">←</button>
+                <div id="imageCarousel">
+                    <!-- Las imágenes cargadas aparecerán aquí -->
+                </div>
+                <button id="nextBtn" class="carousel-btn">→</button>
             </div>
             <div class="controls">
                 <span id="imageCount">0/10</span>

@@ -39,6 +39,7 @@ $stmt->bind_param('sssss', $titulo, $descripcion, $fechaActual, $uniqueUrl, $usu
 
 if ($stmt->execute()) {
     $proyectoId = $stmt->insert_id;
+    echo "Proyecto creado con ID: $proyectoId <br>";
 
     $allowedFileTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
     $imagesArray = [];
@@ -66,17 +67,15 @@ if ($stmt->execute()) {
             }
         }
 
-        if (!empty($imagesArray)) {
-            $imagesJson = json_encode($imagesArray);
-            $sql = "INSERT INTO TArchivos (iProyecto_id, tArchivo) VALUES (?, ?)";
-            $stmtArchivo = $conn->prepare($sql);
-            $stmtArchivo->bind_param('is', $proyectoId, $imagesJson);
+        $imagesJson = json_encode($imagesArray);
+        $sql = "INSERT INTO TArchivos (iProyecto_id, tArchivo) VALUES (?, ?)";
+        $stmtArchivo = $conn->prepare($sql);
+        $stmtArchivo->bind_param('is', $proyectoId, $imagesJson);
 
-            if (!$stmtArchivo->execute()) {
-                echo "Error al insertar archivos: " . $stmtArchivo->error . "<br>";
-            } else {
-                echo "Archivos subidos y guardados correctamente. <br>";
-            }
+        if (!$stmtArchivo->execute()) {
+            echo "Error al insertar archivos: " . $stmtArchivo->error . "<br>";
+        } else {
+            echo "Archivos subidos y guardados correctamente. <br>";
         }
     } else {
         echo "No se seleccionaron archivos para subir.<br>";

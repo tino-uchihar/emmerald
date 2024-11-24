@@ -20,7 +20,7 @@ $usuario = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : '';
                 </div>
                 <div class="right-panel">
                     <div class="field-label">Título</div>
-                    <input type="text" class="input-field" id="cTitulo" name="cTitulo" maxlength="100" placeholder="(max 100 caracteres)" required>
+                    <textarea class="input-field" id="cTitulo" name="cTitulo" maxlength="100" placeholder="(max 100 caracteres)" required></textarea>
                     <div class="field-label">Descripción</div>
                     <textarea class="input-field" id="tDescripcion" name="tDescripcion" maxlength="500" placeholder="(max 500 caracteres)" required></textarea>
                     <div class="buttons">

@@ -20,6 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    echo "Imágenes subidas con éxito.";
+    echo "<script>
+            alert('Archivos subidos correctamente!');
+            window.location.href = 'index.php';
+        </script>";
+    exit();
+    
 }
 ?>

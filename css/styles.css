@@ -415,14 +415,15 @@ footer p {
 
 
 /* CSS para el modal */
+
 .modal-container {
-    display: flex; /* Cambiado de 'none' a 'flex' */
+    display: flex; 
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    background-color: rgba(0, 0, 0, 0.5); 
     justify-content: center;
     align-items: center;
     z-index: 1000;
@@ -439,8 +440,21 @@ footer p {
     position: relative;
 }
 
+#newPostForm { 
+    display: flex; 
+    flex-direction: column; 
+    width: 100%; 
+    height: 100%;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px; 
+    width: 100%;
+}
+
 .left-panel, .right-panel {
-    width: 50%;
     padding: 20px;
     box-sizing: border-box;
     display: flex;
@@ -462,7 +476,7 @@ footer p {
     color: var(--color-texto);
 }
 
-input[type="text"], textarea {
+.input-field, input[type="text"], textarea {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
@@ -487,19 +501,9 @@ input[type="text"], textarea {
     width: 45%;
 }
 
-/* Nuevos estilos */
 .field-label {
     margin-top: 10px;
     font-weight: bold;
-}
-
-.input-field {
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid var(--color-texto);
-    background-color: var(--color-secundario);
-    color: var(--color-texto);
 }
 
 .tags-list {
@@ -517,8 +521,6 @@ input[type="text"], textarea {
     color: var(--color-texto);
 }
 
-
-/* Css para el grid de las imagenes index we */
 .image-gallery {
     display: flex;
     flex-wrap: wrap;
@@ -533,7 +535,7 @@ input[type="text"], textarea {
 }
 
 .gallery-item {
-    flex: 1 1 calc(25% - 20px); /* Ajustar el tamaño del contenedor */
+    flex: 1 1 calc(25% - 20px);
     margin: 10px;
     text-align: center;
 }
@@ -543,10 +545,6 @@ input[type="text"], textarea {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-
-
-/* Estilos para subir imagenes */
-
 
 #carousel {
     width: 400px;

@@ -1,100 +1,84 @@
-CREATE DATABASE if not exists PortafolioArtistico;
+CREATE DATABASE IF NOT EXISTS PortafolioArtistico CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE PortafolioArtistico;
 
-#Categorías  - -  pintura, escultura, arquitectura, música, baile, literatura y fotografia
-CREATE TABLE if not exists TCategorias (
-    iCategoria_id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Categoria (
+    nCategoriaID INT AUTO_INCREMENT PRIMARY KEY,
     cCategoria VARCHAR(50) NOT NULL
-)engine=InnoDB;
+) ENGINE=InnoDB;
 
-#Etiquetas  - -  hashtags : digital, tradicional, 3d, etc
-CREATE TABLE if not exists TEtiquetas ( 
-    iEtiqueta_id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Etiqueta (
+    nEtiquetaID INT AUTO_INCREMENT PRIMARY KEY,
     cEtiqueta VARCHAR(50) NOT NULL
-)engine=InnoDB;
+) ENGINE=InnoDB;
 
-
-#Usuarios  - - 
-CREATE TABLE if not exists TUsuarios (
-    iUsuario_id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Usuarios (
+    nUsuarioID INT AUTO_INCREMENT PRIMARY KEY,
     cNombre VARCHAR(48) NOT NULL,
     cUsuario VARCHAR(24) NOT NULL UNIQUE,
     cCorreo VARCHAR(100) NOT NULL UNIQUE,
     cPassword VARCHAR(255) NOT NULL,
     dRegistro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     tBiografia TEXT,
-    tFoto_perfil text
-)engine=InnoDB;
+    tFotoPerfil TEXT
+) ENGINE=InnoDB;
 
-
-#Proyectos
-CREATE TABLE if not exists TProyectos (
-    iProyecto_id INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Proyecto (
+    nProyectoID INT AUTO_INCREMENT PRIMARY KEY,
     cTitulo VARCHAR(100) NOT NULL,
     tDescripcion TEXT,
     dCreacion DATETIME,
     cUrl VARCHAR(255) NOT NULL,
-	iUsuario_id INT,
-    iCategoria_id INT,
-	FOREIGN KEY (iUsuario_id) REFERENCES TUsuarios(iUsuario_id),
-    FOREIGN KEY (iCategoria_id) REFERENCES TCategorias(iCategoria_id)
-)engine=InnoDB;
+    nUsuarioFK INT,
+    nCategoriaFK INT,
+    FOREIGN KEY (nUsuarioFK) REFERENCES Usuarios(nUsuarioID),
+    FOREIGN KEY (nCategoriaFK) REFERENCES Categoria(nCategoriaID)
+) ENGINE=InnoDB;
 
-
-#Comentarios
-CREATE TABLE if not exists TComentarios (
-    iComentario_id INT AUTO_INCREMENT PRIMARY KEY,
-    iProyecto_id INT,
-    iUsuario_id INT,
+CREATE TABLE IF NOT EXISTS Comentario (
+    nComentarioID INT AUTO_INCREMENT PRIMARY KEY,
+    nProyectoFK INT,
+    nUsuarioFK INT,
     cTexto TEXT NOT NULL,
     dComentario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (iProyecto_id) REFERENCES TProyectos(iProyecto_id),
-    FOREIGN KEY (iUsuario_id) REFERENCES TUsuarios(iUsuario_id)
-)engine=InnoDB;
+    FOREIGN KEY (nProyectoFK) REFERENCES Proyecto(nProyectoID),
+    FOREIGN KEY (nUsuarioFK) REFERENCES Usuarios(nUsuarioID)
+) ENGINE=InnoDB;
 
-#Favoritos
-CREATE TABLE if not exists TFavoritos (
-    iFavorito_id INT AUTO_INCREMENT PRIMARY KEY,
-    iUsuario_id INT,
-    iProyecto_id INT,
-    FOREIGN KEY (iUsuario_id) REFERENCES TUsuarios(iUsuario_id),
-    FOREIGN KEY (iProyecto_id) REFERENCES TProyectos(iProyecto_id)
-)engine=InnoDB;
+CREATE TABLE IF NOT EXISTS Favorito (
+    nFavoritoID INT AUTO_INCREMENT PRIMARY KEY,
+    nUsuarioFK INT,
+    nProyectoFK INT,
+    FOREIGN KEY (nUsuarioFK) REFERENCES Usuarios(nUsuarioID),
+    FOREIGN KEY (nProyectoFK) REFERENCES Proyecto(nProyectoID)
+) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS Seguidor (
+    nSeguidorID INT AUTO_INCREMENT PRIMARY KEY,
+    nSeguidorFK INT,
+    nSeguidoFK INT,
+    FOREIGN KEY (nSeguidorFK) REFERENCES Usuarios(nUsuarioID),
+    FOREIGN KEY (nSeguidoFK) REFERENCES Usuarios(nUsuarioID)
+) ENGINE=InnoDB;
 
-#Seguidores  
-CREATE TABLE TFollows (
-    iFollows_id INT AUTO_INCREMENT PRIMARY KEY,
-    iSeguidor_id INT,
-    iSeguido_id INT,
-    FOREIGN KEY (iSeguidor_id) REFERENCES TUsuarios(iUsuario_id),
-    FOREIGN KEY (iSeguido_id) REFERENCES TUsuarios(iUsuario_id)
-)engine=InnoDB;
-
-
-CREATE TABLE if not exists TArchivos (
-    iArchivo_id INT AUTO_INCREMENT PRIMARY KEY,
-    iProyecto_id INT,
+CREATE TABLE IF NOT EXISTS Archivo (
+    nArchivoID INT AUTO_INCREMENT PRIMARY KEY,
+    nProyectoFK INT,
     tArchivo TEXT,
-    FOREIGN KEY (iProyecto_id) REFERENCES TProyectos(iProyecto_id)
-)engine=InnoDB;
+    FOREIGN KEY (nProyectoFK) REFERENCES Proyecto(nProyectoID)
+) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS ProyectoEtiqueta (
+    nProyectoEtiquetaID INT AUTO_INCREMENT PRIMARY KEY,
+    nProyectoFK INT,
+    nEtiquetaFK INT,
+    FOREIGN KEY (nEtiquetaFK) REFERENCES Etiqueta(nEtiquetaID),
+    FOREIGN KEY (nProyectoFK) REFERENCES Proyecto(nProyectoID)
+) ENGINE=InnoDB;
 
-#Grupo etiquetas de la publicacion
-CREATE TABLE if not exists Tetpubli (
-    iEtpubli_id INT AUTO_INCREMENT PRIMARY KEY,
-    iProyecto_id INT,
-    iEtiqueta_id int,
-    FOREIGN KEY (iEtiqueta_id) REFERENCES TEtiquetas (iEtiqueta_id),
-    FOREIGN KEY (iProyecto_id) REFERENCES TProyectos (iProyecto_id)
-)engine=InnoDB;
-
-
-#Moderadores
-CREATE TABLE if not exists TModeradores (
-iModerador_id INT AUTO_INCREMENT PRIMARY KEY,
-iUsuario_id INT,
-CRol VARCHAR(50) NOT NULL,
-dAsignacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY (iUsuario_id) REFERENCES TUsuarios (iUsuario_id) ON DELETE CASCADE
-)engine=InnoDB;
+CREATE TABLE IF NOT EXISTS Moderador (
+    nModeradorID INT AUTO_INCREMENT PRIMARY KEY,
+    nUsuarioFK INT,
+    cRol VARCHAR(50) NOT NULL,
+    dAsignacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (nUsuarioFK) REFERENCES Usuario(nUsuarioID) ON DELETE CASCADE
+) ENGINE=InnoDB;

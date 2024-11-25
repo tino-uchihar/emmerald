@@ -10,7 +10,7 @@ if (!isset($_SESSION['usuario'])) {
 
 // Obtener los datos del usuario
 $usuario = $_SESSION['usuario'];
-$sql = "SELECT * FROM TUsuarios WHERE cUsuario='$usuario'";
+$sql = "SELECT * FROM Usuarios WHERE cUsuario='$usuario'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {

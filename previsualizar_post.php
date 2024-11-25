@@ -10,10 +10,10 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $iProyecto_id = intval($_GET['id']);
 
 // Obtener datos del proyecto
-$sqlProyecto = "SELECT TProyectos.cTitulo, TProyectos.tDescripcion, TUsuarios.cUsuario, TUsuarios.tFoto_perfil, TProyectos.dCreacion
-                FROM TProyectos 
-                INNER JOIN TUsuarios ON TProyectos.iUsuario_id = TUsuarios.iUsuario_id
-                WHERE TProyectos.iProyecto_id = ?";
+$sqlProyecto = "SELECT Proyectos.cTitulo, Proyectos.tDescripcion, Usuarios.cUsuario, Usuarios.tFoto_perfil, Proyectos.dCreacion
+                FROM Proyectos 
+                INNER JOIN Usuarios ON Proyectos.iUsuario_id = Usuarios.iUsuario_id
+                WHERE Proyectos.iProyecto_id = ?";
 $stmt = $conn->prepare($sqlProyecto);
 if (!$stmt) {
     die("Error en la consulta SQL: " . $conn->error);
@@ -30,7 +30,7 @@ if ($resultProyecto->num_rows > 0) {
 }
 
 // Obtener imágenes del proyecto
-$sqlArchivos = "SELECT tArchivo FROM TArchivos WHERE iProyecto_id = ?";
+$sqlArchivos = "SELECT tArchivo FROM Archivos WHERE iProyecto_id = ?";
 $stmt = $conn->prepare($sqlArchivos);
 if (!$stmt) {
     die("Error en la consulta SQL: " . $conn->error);

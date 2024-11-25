@@ -3,11 +3,11 @@ include 'config.php';
 
 // Consulta para obtener la primera imagen de cada proyecto ordenada por fecha de creación, más nuevas primero
 $sql = "
-SELECT TArchivos.tArchivo, TArchivos.iProyecto_id
-FROM TArchivos
-INNER JOIN TProyectos ON TArchivos.iProyecto_id = TProyectos.iProyecto_id
-GROUP BY TArchivos.iProyecto_id
-ORDER BY TProyectos.dCreacion DESC";
+SELECT Archivo.tArchivo, Archivo.nProyectoFK
+FROM Archivo
+INNER JOIN Proyecto ON Archivo.nProyectoFK = Proyecto.nProyectoID
+GROUP BY Archivo.nProyectoFK
+ORDER BY Proyecto.dCreacion DESC";
 
 $result = $conn->query($sql);
 
@@ -16,7 +16,7 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $images[] = [
             'archivo' => $row['tArchivo'],
-            'proyecto_id' => $row['iProyecto_id']
+            'proyecto_id' => $row['nProyectoFK']
         ];
     }
 } else {

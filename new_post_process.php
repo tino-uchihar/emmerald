@@ -3,7 +3,7 @@ include 'config.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $total = count($_FILES['images']['name']);
+    $total = count($_FILES['archivos']['name']); // Cambiado 'images' por 'archivos'
     $uploadDir = 'uploads/';
 
     if (!file_exists($uploadDir)) {
@@ -12,33 +12,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $allowedExtensions = ['jpg', 'jpeg', 'webp', 'png', 'gif', 'mp4'];
 
-    $cTitulo = $_POST['cTitulo'];
-    $tDescripcion = $_POST['tDescripcion'];
-    $dCreacion = date('Y-m-d H:i:s');
-    $cUrl = 'proyecto_' . time();
-    $cUsuario = $_SESSION['usuario']; // Nombre de usuario del usuario actual
+    $titulo = $_POST['titulo']; // Cambiado 'cTitulo' por 'titulo'
+    $descripcion = $_POST['descripcion']; // Cambiado 'tDescripcion' por 'descripcion'
+    $fecha_creacion = date('Y-m-d H:i:s'); // Cambiado 'dCreacion' por 'fecha_creacion'
+    $url = 'proyecto_' . time(); // Cambiado 'cUrl' por 'url'
+    $usuario = $_SESSION['usuario']; // Nombre de usuario del usuario actual
 
-    // Obtener iUsuario_id basado en cUsuario
-    $sqlUsuario = "SELECT iUsuario_id FROM TUsuarios WHERE cUsuario='$cUsuario'";
+    // Obtener id_usuario basado en usuario
+    $sqlUsuario = "SELECT id_usuario FROM usuarios WHERE usuario='$usuario'"; // Ajustado según nueva base
     $resultUsuario = $conn->query($sqlUsuario);
     if ($resultUsuario->num_rows > 0) {
         $rowUsuario = $resultUsuario->fetch_assoc();
-        $iUsuario_id = $rowUsuario['iUsuario_id'];
+        $id_usuario = $rowUsuario['id_usuario']; // Cambiado 'iUsuario_id' por 'id_usuario'
     } else {
         die("Error: Usuario no encontrado en la base de datos.");
     }
 
     // Insertar el proyecto en la base de datos
-    $sqlProyecto = "INSERT INTO TProyectos (cTitulo, tDescripcion, dCreacion, cUrl, iUsuario_id, iCategoria_id) VALUES ('$cTitulo', '$tDescripcion', '$dCreacion', '$cUrl', '$iUsuario_id', NULL)";
+    $sqlProyecto = "INSERT INTO proyectos (titulo, descripcion, fecha_creacion, url, id_usuario, id_categoria) 
+                    VALUES ('$titulo', '$descripcion', '$fecha_creacion', '$url', '$id_usuario', NULL)";
     if ($conn->query($sqlProyecto) === TRUE) {
-        $iProyecto_id = $conn->insert_id; // ID del proyecto recién creado
+        $id_proyecto = $conn->insert_id; // Cambiado 'iProyecto_id' por 'id_proyecto'
     } else {
         die("Error al guardar el proyecto: " . $conn->error);
     }
 
+    // Guardar archivos
     for ($i = 0; $i < $total; $i++) {
-        $tmpFilePath = $_FILES['images']['tmp_name'][$i];
-        $extension = pathinfo($_FILES['images']['name'][$i], PATHINFO_EXTENSION);
+        $tmpFilePath = $_FILES['archivos']['tmp_name'][$i]; // Cambiado 'images' por 'archivos'
+        $extension = pathinfo($_FILES['archivos']['name'][$i], PATHINFO_EXTENSION); // Cambiado 'images' por 'archivos'
 
         if ($tmpFilePath != "" && in_array(strtolower($extension), $allowedExtensions)) {
             $newFileName = uniqid('', true) . '.' . $extension;
@@ -46,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             move_uploaded_file($tmpFilePath, $newFilePath);
 
             // Insertar archivo en la base de datos
-            $sqlArchivo = "INSERT INTO TArchivos (iProyecto_id, tArchivo) VALUES ('$iProyecto_id', '$newFileName')";
+            $sqlArchivo = "INSERT INTO archivos (id_proyecto, archivo) VALUES ('$id_proyecto', '$newFileName')"; // Ajustado según nueva base
             if ($conn->query($sqlArchivo) !== TRUE) {
                 die("Error al guardar el archivo: " . $conn->error);
             }

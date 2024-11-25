@@ -9,7 +9,7 @@ $correo = strtolower($_POST['correo']);
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
 // Verificar si el usuario o el correo ya existen
-$sql_verificacion = "SELECT * FROM TUsuarios WHERE cUsuario='$usuario' OR cCorreo='$correo'";
+$sql_verificacion = "SELECT * FROM Usuarios WHERE cUsuario='$usuario' OR cCorreo='$correo'";
 $result_verificacion = $conn->query($sql_verificacion);
 if ($result_verificacion->num_rows > 0) {
     $row = $result_verificacion->fetch_assoc();
@@ -21,7 +21,7 @@ if ($result_verificacion->num_rows > 0) {
     }
 } else {
     // Si no hay duplicados, realizar el registro
-    $sql = "INSERT INTO TUsuarios (cNombre, cUsuario, cCorreo, cPassword) VALUES ('$nombre', '$usuario', '$correo', '$password')";
+    $sql = "INSERT INTO Usuarios (cNombre, cUsuario, cCorreo, cPassword) VALUES ('$nombre', '$usuario', '$correo', '$password')";
     if ($conn->query($sql) === TRUE) {
         $_SESSION['usuario'] = $usuario;
         echo "<script>alert('Registro exitoso!'); window.location.href='profile.php?usuario=$usuario';</script>"; // Alerta y redirección a profile.php

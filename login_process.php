@@ -5,7 +5,7 @@ session_start();
 $usuario = $_POST['usuario'];
 $password = $_POST['password'];
 
-$sql = "SELECT * FROM TUsuarios WHERE cUsuario='$usuario'";
+$sql = "SELECT * FROM Usuarios WHERE cUsuario='$usuario'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {

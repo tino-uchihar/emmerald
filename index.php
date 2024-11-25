@@ -1,3 +1,4 @@
+<?php include 'obtener_imagenes.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -25,37 +26,13 @@
         </div>
     </nav>
     <section class="image-gallery">
-        <?php
-        include 'config.php';
-
-        // Clave para desencriptar si estás usando encriptación
-        $clave = 'estaesunallavesecreta';
-
-        // Recuperar todas las publicaciones y sus imágenes, ordenadas por fecha
-        $sql = "SELECT TProyectos.cTitulo, TProyectos.dCreacion, TArchivos.tArchivo 
-                FROM TProyectos 
-                JOIN TArchivos ON TProyectos.iProyecto_id = TArchivos.iProyecto_id 
-                ORDER BY TProyectos.dCreacion DESC";
-        $result = $conn->query($sql);
-
-        if ($result && $result->num_rows > 0) {
-            echo '<div class="gallery-row">';
-            while ($row = $result->fetch_assoc()) {
-                $imagenes = json_decode($row['tArchivo']);
-                echo '<div class="gallery-item">';
-                foreach ($imagenes as $imagen) {
-                    echo '<img src="uploads/' . htmlspecialchars($imagen) . '" alt="' . htmlspecialchars($row['cTitulo']) . '" width="200">';
-                }
-                echo '<p>' . htmlspecialchars($row['cTitulo']) . '</p>';
-                echo '</div>';
-            }
-            echo '</div>'; // Cerrar la fila
-        } else {
-            echo '<p>No hay publicaciones disponibles.</p>';
-        }
-
-        $conn->close();
-        ?>
+        <?php if (!empty($images)): ?>
+            <?php foreach ($images as $image): ?>
+                <img src="uploads/<?php echo $image; ?>" alt="Imagen del Proyecto">
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div class="no-images-message">No hay imágenes disponibles.</div>
+        <?php endif; ?>
     </section>
     <?php include 'includes/footer.php'; ?>
 </body>

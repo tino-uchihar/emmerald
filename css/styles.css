@@ -599,3 +599,32 @@ footer p {
     padding: 0 5px;
     border-radius: 50%;
 }
+
+
+/* Estilos para las imagenes del index */
+
+.image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    position: relative;
+    min-height: 400px; /* Asegura que la sección tenga al menos una altura mínima */
+}
+
+.no-images-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    color: grey;
+    text-align: center;
+}
+
+.image-gallery img {
+    width: 100%;
+    height: auto;
+}

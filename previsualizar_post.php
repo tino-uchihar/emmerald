@@ -24,7 +24,8 @@ $resultArchivos = $conn->query($sqlArchivos);
 $archivos = [];
 if ($resultArchivos->num_rows > 0) {
     while ($row = $resultArchivos->fetch_assoc()) {
-        $archivos[] = $row['tArchivo'];
+        // Agregar la ruta completa a cada archivo
+        $archivos[] = 'uploads/' . $row['tArchivo'];
     }
 }
 
@@ -36,18 +37,18 @@ if (empty($proyecto['tFoto_perfil'])) {
 $conn->close();
 ?>
 
-
+<script>
+const images = <?php echo json_encode($archivos); ?>;
+</script>
 
 <div class="modal-container-preview" id="previewPostModal">
     <div class="modal-content-preview">
         <div class="grid-container-preview">
             <div class="left-panel-preview">
                 <div id="previewCarousel">
-                    <span class="preview-arrow" id="previewPrev">&#9664;</span>
-                    <?php foreach ($archivos as $archivo): ?>
-                        <img src="uploads/<?php echo $archivo; ?>" alt="Imagen del Proyecto">
-                    <?php endforeach; ?>
-                    <span class="preview-arrow" id="previewNext">&#9654;</span>
+                    <span class="preview-arrow" id="previewPrev">◀</span>
+                    <!-- imágenes aquí -->
+                    <span class="preview-arrow" id="previewNext">▶</span>
                 </div>
             </div>
             <div class="right-panel-preview">
@@ -95,9 +96,3 @@ $conn->close();
         </div>
     </div>
 </div>
-
-<script>
-document.getElementById('closeModalBtnPreview').addEventListener('click', function() {
-    document.getElementById('previewPostModal').remove();
-});
-</script>

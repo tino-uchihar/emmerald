@@ -28,7 +28,7 @@
     <section class="image-gallery">
         <?php if (!empty($images)): ?>
             <?php foreach ($images as $image): ?>
-                <img src="uploads/<?php echo $image['archivo']; ?>" alt="Imagen del Proyecto" data-id="<?php echo $image['proyecto_id']; ?>">
+                <img src="uploads/<?php echo $image['archivo']; ?>" alt="Imagen del Proyecto" data-id="<?php echo $image['proyecto_id']; ?>" onclick="openPreviewModal(<?php echo $image['proyecto_id']; ?>)">
             <?php endforeach; ?>
         <?php else: ?>
             <div class="no-images-message">No hay imágenes disponibles.</div>
@@ -37,19 +37,33 @@
     <?php include 'includes/footer.php'; ?>
 
     <script>
-    document.querySelectorAll('.image-gallery img').forEach(img => {
-        img.addEventListener('click', function() {
-            const id = this.getAttribute('data-id');
-            fetch(`previsualizar_post.php?id=${id}`)
-                .then(response => response.text())
-                .then(data => {
-                    const modalContainer = document.createElement('div');
-                    modalContainer.innerHTML = data;
-                    document.body.appendChild(modalContainer);
-                })
-                .catch(error => console.error('Error al cargar el modal:', error));
-        });
-    });
+    function openPreviewModal(id) {
+        fetch(`previsualizar_post.php?id=${id}`)
+            .then(response => response.text())
+            .then(data => {
+                const modalContainer = document.createElement('div');
+                modalContainer.innerHTML = data;
+                document.body.appendChild(modalContainer);
+
+                // Verificar si el script ya está cargado
+                if (!document.getElementById('script-previsualizar_post')) {
+                    const script = document.createElement('script');
+                    script.src = 'js/script-previsualizar_post.js';
+                    script.id = 'script-previsualizar_post';
+                    document.body.appendChild(script);
+                } else {
+                    // Si el script ya está cargado, inicializamos directamente el carrusel
+                    if (typeof initializeCarousel === 'function') {
+                        initializeCarousel();
+                    }
+                }
+
+                modalContainer.querySelector('#closeModalBtnPreview').addEventListener('click', () => {
+                    modalContainer.remove();
+                });
+            })
+            .catch(error => console.error('Error al cargar el modal:', error));
+    }
     </script>
 </body>
 </html>

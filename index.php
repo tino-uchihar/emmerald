@@ -27,13 +27,29 @@
     </nav>
     <section class="image-gallery">
         <?php if (!empty($images)): ?>
-            <?php foreach ($images as $image): ?>
-                <img src="uploads/<?php echo $image; ?>" alt="Imagen del Proyecto">
+            <?php foreach ($images as $i => $image): ?>
+                <img src="uploads/<?php echo $image; ?>" alt="Imagen del Proyecto" data-id="<?php echo $i; ?>">
             <?php endforeach; ?>
         <?php else: ?>
             <div class="no-images-message">No hay imágenes disponibles.</div>
         <?php endif; ?>
     </section>
     <?php include 'includes/footer.php'; ?>
+
+    <script>
+    document.querySelectorAll('.image-gallery img').forEach(img => {
+        img.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            fetch(`previsualizar_post.php?id=${id}`)
+                .then(response => response.text())
+                .then(data => {
+                    const modalContainer = document.createElement('div');
+                    modalContainer.innerHTML = data;
+                    document.body.appendChild(modalContainer);
+                })
+                .catch(error => console.error('Error al cargar el modal:', error));
+        });
+    });
+    </script>
 </body>
 </html>

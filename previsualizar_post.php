@@ -2,14 +2,26 @@
 include 'config.php';
 session_start();
 
-$iProyecto_id = $_GET['id'];
+// Validar el parámetro `id` para evitar inyecciones SQL
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    die("ID inválido.");
+}
+
+$iProyecto_id = intval($_GET['id']);
 
 // Obtener datos del proyecto
 $sqlProyecto = "SELECT TProyectos.cTitulo, TProyectos.tDescripcion, TUsuarios.cUsuario, TUsuarios.tFoto_perfil, TProyectos.dCreacion
                 FROM TProyectos 
                 INNER JOIN TUsuarios ON TProyectos.iUsuario_id = TUsuarios.iUsuario_id
-                WHERE TProyectos.iProyecto_id = '$iProyecto_id'";
-$resultProyecto = $conn->query($sqlProyecto);
+                WHERE TProyectos.iProyecto_id = ?";
+$stmt = $conn->prepare($sqlProyecto);
+if (!$stmt) {
+    die("Error en la consulta SQL: " . $conn->error);
+}
+
+$stmt->bind_param("i", $iProyecto_id);
+$stmt->execute();
+$resultProyecto = $stmt->get_result();
 
 if ($resultProyecto->num_rows > 0) {
     $proyecto = $resultProyecto->fetch_assoc();
@@ -18,8 +30,15 @@ if ($resultProyecto->num_rows > 0) {
 }
 
 // Obtener imágenes del proyecto
-$sqlArchivos = "SELECT tArchivo FROM TArchivos WHERE iProyecto_id = '$iProyecto_id'";
-$resultArchivos = $conn->query($sqlArchivos);
+$sqlArchivos = "SELECT tArchivo FROM TArchivos WHERE iProyecto_id = ?";
+$stmt = $conn->prepare($sqlArchivos);
+if (!$stmt) {
+    die("Error en la consulta SQL: " . $conn->error);
+}
+
+$stmt->bind_param("i", $iProyecto_id);
+$stmt->execute();
+$resultArchivos = $stmt->get_result();
 
 $archivos = [];
 if ($resultArchivos->num_rows > 0) {
@@ -57,16 +76,16 @@ const images = <?php echo json_encode($archivos); ?>;
                         <img src="<?php echo $proyecto['tFoto_perfil']; ?>" alt="Foto de Perfil" class="perfil-foto">
                     </div>
                     <div class="div2">
-                        <a href="#"><?php echo $proyecto['cUsuario']; ?></a>
+                        <a href="#"><?php echo htmlspecialchars($proyecto['cUsuario']); ?></a>
                     </div>
                     <div class="div3">
                         <p><?php echo date('d/m/Y H:i', strtotime($proyecto['dCreacion'])); ?></p>
                     </div>
                     <div class="div4">
-                        <h2><?php echo $proyecto['cTitulo']; ?></h2>
+                        <h2><?php echo htmlspecialchars($proyecto['cTitulo']); ?></h2>
                     </div>
                     <div class="div5">
-                        <p><?php echo $proyecto['tDescripcion']; ?></p>
+                        <p><?php echo htmlspecialchars($proyecto['tDescripcion']); ?></p>
                     </div>
                     <div class="div6">
                         <label for="comentarios">Comentarios</label>

@@ -1,65 +1,59 @@
 function initializeCarousel() {
+    console.log("Inicializando el carrusel...");
+
+    if (typeof images === 'undefined' || !Array.isArray(images) || images.length === 0) {
+        console.error("❌ Error: 'images' no está definido o está vacío.");
+        return;
+    } else {
+        console.log(`✔ Array 'images' cargado con ${images.length} imagen(es).`, images);
+    }
+
     const previewCarousel = document.getElementById('previewCarousel');
+    if (!previewCarousel) {
+        console.error("❌ Error: No se encontró el elemento 'previewCarousel' en el DOM.");
+        return;
+    } else {
+        console.log("✔ Elemento 'previewCarousel' encontrado.");
+    }
+
     const prev = document.getElementById('previewPrev');
     const next = document.getElementById('previewNext');
+
+    if (!prev || !next) {
+        console.error("❌ Error: No se encontraron los botones de navegación ('prev' o 'next').");
+        return;
+    } else {
+        console.log("✔ Botones de navegación encontrados.");
+    }
+
     let currentIndex = 0;
 
     function updateCarousel() {
-        if (images.length > 0) {
-            previewCarousel.style.backgroundImage = `url('${images[currentIndex]}')`;
-            console.log(`Imagen actual: ${images[currentIndex]}`);
-        } else {
-            previewCarousel.style.backgroundImage = '';
-        }
+        previewCarousel.style.backgroundImage = `url('${images[currentIndex]}')`;
+        console.log(`✔ Mostrando imagen en el carrusel: ${images[currentIndex]} (índice ${currentIndex})`);
     }
 
     prev.addEventListener('click', () => {
-        console.log('Botón Anterior clicado');
-        if (images.length > 0) {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            updateCarousel();
-        }
+        console.log("Botón 'Anterior' clicado.");
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateCarousel();
     });
 
     next.addEventListener('click', () => {
-        console.log('Botón Siguiente clicado');
-        if (images.length > 0) {
-            currentIndex = (currentIndex + 1) % images.length;
-            updateCarousel();
-        }
+        console.log("Botón 'Siguiente' clicado.");
+        currentIndex = (currentIndex + 1) % images.length;
+        updateCarousel();
     });
 
-    // Inicializar el carrusel con la primera imagen
-    updateCarousel();
+    updateCarousel(); // Muestra la primera imagen
 }
 
-document.addEventListener('DOMContentLoaded', initializeCarousel);
 
-
-function openPreviewModal(id) {
-    fetch(`previsualizar_post.php?id=${id}`)
-        .then(response => response.text())
-        .then(data => {
-            const modalContainer = document.createElement('div');
-            modalContainer.innerHTML = data;
-            document.body.appendChild(modalContainer);
-
-            // Verificar si el script ya está cargado
-            if (!document.getElementById('script-previsualizar_post')) {
-                const script = document.createElement('script');
-                script.src = 'js/script-previsualizar_post.js';
-                script.id = 'script-previsualizar_post';
-                document.body.appendChild(script);
-            } else {
-                // Si el script ya está cargado, inicializamos directamente el carrusel
-                if (typeof initializeCarousel === 'function') {
-                    initializeCarousel();
-                }
-            }
-
-            modalContainer.querySelector('#closeModalBtnPreview').addEventListener('click', () => {
-                modalContainer.remove();
-            });
-        })
-        .catch(error => console.error('Error al cargar el modal:', error));
-}
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Evento 'DOMContentLoaded' disparado. Intentando inicializar el carrusel...");
+    if (typeof images !== 'undefined' && images.length > 0) {
+        initializeCarousel();
+    } else {
+        console.error("❌ Error: El array 'images' no está disponible al cargar el DOM.");
+    }
+});

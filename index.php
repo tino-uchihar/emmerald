@@ -37,33 +37,37 @@
     <?php include 'includes/footer.php'; ?>
 
     <script>
-    function openPreviewModal(id) {
-        fetch(`previsualizar_post.php?id=${id}`)
-            .then(response => response.text())
-            .then(data => {
-                const modalContainer = document.createElement('div');
-                modalContainer.innerHTML = data;
-                document.body.appendChild(modalContainer);
+        function openPreviewModal(id) {
+            fetch(`previsualizar_post.php?id=${id}`)
+                .then(response => response.text())
+                .then(data => {
+                    const modalContainer = document.createElement('div');
+                    modalContainer.innerHTML = data;
+                    document.body.appendChild(modalContainer);
 
-                // Verificar si el script ya está cargado
-                if (!document.getElementById('script-previsualizar_post')) {
+                    // Forzar recarga del script
                     const script = document.createElement('script');
-                    script.src = 'js/script-previsualizar_post.js';
+                    script.src = `js/script-previsualizar_post.js?cacheBuster=${Date.now()}`;
                     script.id = 'script-previsualizar_post';
+                    script.onload = () => {
+                        console.log("✔ Script 'script-previsualizar_post.js' cargado correctamente.");
+                        if (typeof initializeCarousel === 'function') {
+                            initializeCarousel();
+                        } else {
+                            console.error("❌ Error: 'initializeCarousel' no está definida después de cargar el script.");
+                        }
+                    };
+                    script.onerror = () => {
+                        console.error("❌ Error: Fallo al cargar 'script-previsualizar_post.js'. Verifica la ruta.");
+                    };
                     document.body.appendChild(script);
-                } else {
-                    // Si el script ya está cargado, inicializamos directamente el carrusel
-                    if (typeof initializeCarousel === 'function') {
-                        initializeCarousel();
-                    }
-                }
 
-                modalContainer.querySelector('#closeModalBtnPreview').addEventListener('click', () => {
-                    modalContainer.remove();
-                });
-            })
-            .catch(error => console.error('Error al cargar el modal:', error));
-    }
+                    modalContainer.querySelector('#closeModalBtnPreview').addEventListener('click', () => {
+                        modalContainer.remove();
+                    });
+                })
+                .catch(error => console.error('❌ Error al cargar el modal:', error));
+        }
     </script>
 </body>
 </html>

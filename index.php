@@ -27,8 +27,8 @@
     </nav>
     <section class="image-gallery">
         <?php if (!empty($images)): ?>
-            <?php foreach ($images as $i => $image): ?>
-                <img src="uploads/<?php echo $image; ?>" alt="Imagen del Proyecto" data-id="<?php echo $i; ?>">
+            <?php foreach ($images as $image): ?>
+                <img src="uploads/<?php echo $image['archivo']; ?>" alt="Imagen del Proyecto" data-id="<?php echo $image['proyecto_id']; ?>">
             <?php endforeach; ?>
         <?php else: ?>
             <div class="no-images-message">No hay imágenes disponibles.</div>

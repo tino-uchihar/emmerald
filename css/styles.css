@@ -632,6 +632,7 @@ footer p {
     gap: 20px; 
     width: 100%;
     height: 100%;
+    overflow: hidden; /* Evita el desbordamiento del contenido */
 }
 
 .left-panel-preview, .right-panel-preview {
@@ -641,6 +642,8 @@ footer p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow: hidden; /* Evita el desbordamiento del contenido */
+    max-height: 100%; /* Asegura que los paneles no excedan la altura del contenedor */
 }
 
 .left-panel-preview img {

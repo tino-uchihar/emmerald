@@ -58,6 +58,16 @@ $conn->close();
 
 <script>
 const images = <?php echo json_encode($archivos); ?>;
+if (typeof initializeCarousel === 'function') {
+    console.log("✔ 'images' definido correctamente. Inicializando el carrusel...");
+    initializeCarousel();
+} else {
+    console.log("❌ 'initializeCarousel' aún no está disponible. Esperando a que el script se cargue.");
+    document.addEventListener('initializeReady', () => {
+        console.log("✔ Evento 'initializeReady' recibido. Inicializando el carrusel...");
+        initializeCarousel();
+    });
+}
 </script>
 
 <div class="modal-container-preview" id="previewPostModal">
@@ -66,7 +76,11 @@ const images = <?php echo json_encode($archivos); ?>;
             <div class="left-panel-preview">
                 <div id="previewCarousel">
                     <span class="preview-arrow" id="previewPrev">◀</span>
-                    <!-- imágenes aquí -->
+                    <div class="carousel-images">
+                        <?php foreach ($archivos as $archivo): ?>
+                            <img src="<?php echo $archivo; ?>" alt="Imagen del Proyecto">
+                        <?php endforeach; ?>
+                    </div>
                     <span class="preview-arrow" id="previewNext">▶</span>
                 </div>
             </div>

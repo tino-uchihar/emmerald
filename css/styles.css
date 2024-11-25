@@ -600,7 +600,38 @@ footer p {
     border-radius: 50%;
 }
 
-/* preview del post */
+/* Estilos para las imagenes del index */
+
+.image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    position: relative;
+    min-height: 400px; /* Asegura que la sección tenga al menos una altura mínima */
+}
+
+.no-images-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    color: grey;
+    text-align: center;
+}
+
+.image-gallery img {
+    width: 100%;
+    height: auto;
+    cursor: pointer; /* Añade cursor pointer para indicar que es clicable */
+}
+
+
+
+/* Estilos para el modal de previsualización */
 
 .modal-container-preview {
     display: flex; 
@@ -646,17 +677,76 @@ footer p {
     max-height: 100%; /* Asegura que los paneles no excedan la altura del contenedor */
 }
 
+.left-panel-preview {
+    position: relative;
+}
+
 .left-panel-preview img {
     max-width: 100%;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     margin-bottom: 10px;
+    display: none;
 }
 
-.buttons-preview {
+/* Estilos para el right-panel-preview en forma de grid */
+
+.right-panel-preview {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Evita el desbordamiento del contenido */
     display: flex;
     flex-direction: column;
+    justify-content: center;
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr) 0.5fr repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    width: 100%; /* Ajusta la anchura */
+    height: 100%; /* Ajusta la altura */
+    box-sizing: border-box; /* Incluye padding y border en las dimensiones */
+}
+
+.parent > div {
+    display: flex;
     align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.div1 { grid-area: 1 / 1 / 3 / 2; }
+.div2 { grid-area: 1 / 2 / 2 / 5; }
+.div3 { grid-area: 2 / 2 / 3 / 5; }
+.div4 { grid-area: 3 / 1 / 4 / 5; }
+.div5 { grid-area: 4 / 1 / 5 / 5; }
+.div6 { grid-area: 5 / 1 / 6 / 4; }
+.div7 { grid-area: 6 / 1 / 7 / 4; }
+.div8 { grid-area: 5 / 4 / 6 / 5; }
+.div9 { grid-area: 6 / 4 / 7 / 5; }
+.div10 { grid-area: 7 / 1 / 8 / 5; }
+.div11 { grid-area: 8 / 1 / 9 / 4; }
+.div12 { grid-area: 8 / 4 / 9 / 5; }
+
+.perfil-foto {
+    border-radius: 50%;
+    border: 2px solid var(--color-secundario); /* Añade el borde circular */
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 90%; /* Asegúrate de que no toque los bordes */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid var(--color-texto);
+    background-color: var(--color-secundario);
+    color: var(--color-texto);
 }
 
 .buttons-preview button {
@@ -665,44 +755,40 @@ footer p {
     border: none;
     padding: 10px;
     cursor: pointer;
-    width: 100px;
+    width: 100%;
     margin: 5px 0;
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
-textarea {
+.comments-preview {
     width: 100%;
-    padding: 10px;
+    min-height: 50px;
     margin: 10px 0;
+    padding: 10px;
     border: 1px solid var(--color-texto);
     background-color: var(--color-secundario);
     color: var(--color-texto);
-}
-
-/* Estilos para las imagenes del index */
-
-.image-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
-    position: relative;
-    min-height: 400px; /* Asegura que la sección tenga al menos una altura mínima */
-}
-
-.no-images-message {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+}
+
+/* Estilos para las flechas del carrusel */
+
+.preview-arrow {
+    cursor: pointer;
+    user-select: none;
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.5rem;
-    color: grey;
-    text-align: center;
+    transform: translateY(-50%);
+    font-size: 2rem;
 }
 
-.image-gallery img {
-    width: 100%;
-    height: auto;
-    cursor: pointer; /* Añade cursor pointer para indicar que es clicable */
+#previewPrev {
+    left: 10px;
+}
+
+#previewNext {
+    right: 10px;
 }
